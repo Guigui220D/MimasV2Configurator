@@ -1,9 +1,11 @@
 MIMAS V2 Configuration Tool
 ===========================
 
-![mimasv2conf.gif](mimasv2conf.gif)
+[!INFO]
+This is a fork, that is meant for terminal use of the configurator instead of GUI.
 
-This is the source code for the [Mimas V2 FPGA Board](https://numato.com/mimas-v2-spartan-6-fpga-development-board-with-ddr-sdram/) configuration tool.
+This is the source code for the [Mimas V2 FPGA Board](https://numato.com/mimas-v2-spartan-6-fpga-development-board-with-ddr-sdram/) configuration tool, in terminal mode.
+This fork lets you use the application in a terminal instead of from the GUI.
 The application is developed in Java and depends on the following libraries:
 
 1. [Java Native Access (JNA)](https://github.com/java-native-access/jna)
