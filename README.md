@@ -1,8 +1,8 @@
 MIMAS V2 Configuration Tool
 ===========================
 
-[!INFO]
-This is a fork, that is meant for terminal use of the configurator instead of GUI.
+> [!NOTE]
+> This is a fork, that is meant for terminal use of the configurator instead of GUI.
 
 This is the source code for the [Mimas V2 FPGA Board](https://numato.com/mimas-v2-spartan-6-fpga-development-board-with-ddr-sdram/) configuration tool, in terminal mode.
 This fork lets you use the application in a terminal instead of from the GUI.
@@ -24,7 +24,7 @@ You can then find the binary in `./build/libs/mv2c.jar`.
 
 Start and get help with `java -jar mv2c.jar -h` (Java 17 recommended).
 
-Example usage: ̀ java -jar mv2c.jar -v -f -i bitstream.bin -o ttyACM0`.
+Example usage: `java -jar mv2c.jar -v -f -i bitstream.bin -o ttyACM0`.
 
 ## Options
 
@@ -33,6 +33,7 @@ Example usage: ̀ java -jar mv2c.jar -v -f -i bitstream.bin -o ttyACM0`.
 - -f: fast mode: use 115200 bauds
 - -v: verify after flash
 - -h: help
+- -l: list serial com port names
 
 License
 --------

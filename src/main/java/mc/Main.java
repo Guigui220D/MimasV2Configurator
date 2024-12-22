@@ -36,6 +36,7 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.HelpFormatter;
+import java.util.Enumeration;
 
 /**
  *
@@ -52,6 +53,7 @@ public class Main {
       // CLI options
       Options options = new Options();
       options.addOption("h", "help", false, "Show help");
+      options.addOption("l", "list", false, "List serial com port names");
       options.addOption("v", "verify", false, "Verify flash after programming");
       options.addOption("f", "fast", false, "Use 115200 bauds instead of 19200");
       options.addOption("i", "bitstream", true, "Bistream file path");
@@ -71,6 +73,11 @@ public class Main {
         if (cmd.hasOption("h")) {
           HelpFormatter formatter = new HelpFormatter();
           formatter.printHelp("mv2c [-f] [-v] -i bitstream.bin -o ttyACM0", options);
+          return;
+        }
+
+        if (cmd.hasOption("l")) {
+          listSerialPorts();
           return;
         }
 
@@ -94,7 +101,7 @@ public class Main {
           return;
         }
       } catch (ParseException e) {
-        System.err.println("ERror parsing CLI arguments: " + e.getMessage());
+        System.err.println("Error parsing CLI arguments: " + e.getMessage());
         return;
       }
 
@@ -121,7 +128,7 @@ public class Main {
         return;
       }
       
-      // Start process      
+      // Start process
       TerminalProgress progress = new TerminalProgress();
       MimasV2ConfigDownloader configDownloader = new MimasV2ConfigDownloader(serialPort, bitPath, progress, verify);
 
@@ -132,14 +139,8 @@ public class Main {
         return;
       }
 
-      // TODO: warn if the filename doesn't end with .bin/ends with .bit
-      // Thread t = new Thread(configDownloader);
-      // t.start();
-      // try {
-      //   t.join();
-      // } catch (Exception e) {
-      //   System.err.println("Error while joining thread: " + e.getMessage());
-      // }
+      if (!bitPath.endsWith(".bin"))
+        System.err.println("Warning: bitstream file doesn't end with .bin, are you sure you are using the right file?");
 
       configDownloader.run();
 
@@ -147,4 +148,21 @@ public class Main {
 
       serialPort.close();
     }        
+
+    // Print a list of serial ports in the terminal
+    private static void listSerialPorts() {
+        Enumeration ports = CommPortIdentifier.getPortIdentifiers();
+        System.out.println("List of available com port identifiers:");
+        while (ports.hasMoreElements()) {
+            CommPortIdentifier port = (CommPortIdentifier) ports.nextElement();
+            switch (port.getPortType()) {
+                case CommPortIdentifier.PORT_SERIAL:
+                    System.out.println(" - " + port.getName());
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }
+
