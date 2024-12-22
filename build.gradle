@@ -19,6 +19,7 @@ repositories {
 dependencies {
     implementation 'org.bidib.com.github.purejavacomm:purejavacomm:1.0.5'
     implementation 'net.java.dev.jna:jna:5.14.0'
+    implementation 'commons-cli:commons-cli:1.5.0'
 }
 
 application {

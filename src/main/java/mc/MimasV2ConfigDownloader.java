@@ -479,11 +479,20 @@ public class MimasV2ConfigDownloader implements Runnable {
                 // Open the binary file and load the contents to buffer
                 listener.logMessage("Loading file " + fileName + "...");
                 File file = new File(fileName);
+
+                if (!file.exists() || file.isDirectory()) {
+                    listener.errorMessage("Bitsteam file does not exist or is directory");
+                    return;
+                }
                 
                 FileInputStream in = new FileInputStream(file);
                 
                 // Find out the size of the file
                 int fileSize = (int) file.length();
+                if (fileSize == 0) {
+                    listener.errorMessage("Bistream file is empty");
+                    return;
+                }
                 
                 // Read file in to buffer
                 byte[] dataBuff = new byte[fileSize];
@@ -496,7 +505,7 @@ public class MimasV2ConfigDownloader implements Runnable {
                 
                 int address = 0;
                 
-                listener.updateTitle("Programming FPGA Board ...");
+                listener.updateTitle("Programming FPGA Board...");
                 listener.initProgress(fileSize);
                 
                 while (fileSize != 0) {
@@ -524,7 +533,7 @@ public class MimasV2ConfigDownloader implements Runnable {
                     }
                 }
                 listener.updateTitle("Programming done!");
-                listener.logMessage("Resetting FPGA Board ...");
+                listener.logMessage("Resetting FPGA Board...");
                 
                 // Set CS to input
                 spiSetIoDirection(CONFIG_IO_PIN_CS, IO_DIRECTION_IN);

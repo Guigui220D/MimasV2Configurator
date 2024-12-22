@@ -10,13 +10,29 @@ The application is developed in Java and depends on the following libraries:
 
 1. [Java Native Access (JNA)](https://github.com/java-native-access/jna)
 2. [PureJavaComm](https://github.com/nyholku/purejavacomm)
+2. [Apache Commons CLI](https://commons.apache.org/proper/commons-cli/)
 
-# Build & run
+# Build
 
 ```bash
 ./gradlew build
-java -jar ./app/build/libs/MimasV2Configurator.jar
 ```
+
+You can then find the binary in `./build/libs/mv2c.jar`.
+
+# Usage
+
+Start and get help with `java -jar mv2c.jar -h` (Java 17 recommended).
+
+Example usage: ̀ java -jar mv2c.jar -v -f -i bitstream.bin -o ttyACM0`.
+
+## Options
+
+- -i: bitstream binary (not a .bit) (mandatory)
+- -o: serial comm port name (not the path, the name) (mandatory)
+- -f: fast mode: use 115200 bauds
+- -v: verify after flash
+- -h: help
 
 License
 --------
